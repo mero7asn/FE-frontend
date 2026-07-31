@@ -1,0 +1,221 @@
+/* ─── Luxury Header ─────────────────────────────────── */
+.header {
+  position: sticky;
+  top: 0;
+  background: rgba(250, 248, 244, 0.96);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  z-index: 1000;
+  padding: 1rem 0;
+  box-shadow: 0 2px 20px rgba(142, 104, 38, 0.08);
+  transition: box-shadow 0.3s ease;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Brand logo */
+.logo {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.logo-text {
+  background: var(--gold-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Navigation links */
+.nav-links {
+  display: flex;
+  gap: 2.5rem;
+  align-items: center;
+}
+
+.nav-links a {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--text-mid);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  transition: color 0.25s ease;
+  position: relative;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--gold-gradient);
+  transition: width 0.3s ease;
+}
+
+.nav-links a:hover { color: var(--dark-gold); }
+.nav-links a:hover::after { width: 100%; }
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.icon-btn {
+  position: relative;
+  font-size: 1.2rem;
+  color: var(--text-mid);
+  transition: color 0.25s ease;
+}
+
+.icon-btn:hover { color: var(--main-gold); }
+
+.badge {
+  position: absolute;
+  top: -7px;
+  right: -7px;
+  background: var(--gold-gradient);
+  color: var(--white);
+  font-size: 0.6rem;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-family: 'Inter', sans-serif;
+}
+
+.mobile-menu-btn {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.4rem;
+  color: var(--text-dark);
+}
+
+.user-menu {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.btn-admin {
+  padding: 0.4rem 1rem;
+  background: transparent;
+  border: 1px solid var(--main-gold);
+  color: var(--dark-gold);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-family: 'Inter', sans-serif;
+  transition: all 0.25s ease;
+}
+
+.btn-language {
+  padding: 0.4rem 1rem;
+  background: transparent;
+  border: 1px solid var(--main-gold);
+  color: var(--dark-gold);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-family: 'Inter', sans-serif;
+  transition: all 0.25s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  cursor: pointer;
+}
+
+.btn-admin:hover,
+.btn-language:hover {
+  background: var(--main-gold);
+  color: var(--white);
+}
+
+.logout-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  border-color: #c0392b;
+  color: #c0392b;
+  cursor: pointer;
+}
+
+.logout-btn:hover {
+  background: #c0392b;
+  color: var(--white);
+  border-color: #c0392b;
+}
+
+@media (max-width: 768px) {
+  .header {
+    padding: 0.6rem 0;
+  }
+
+  .nav-links {
+    position: fixed;
+    top: 56px;
+    left: -100%;
+    right: auto;
+    width: 100%;
+    height: calc(100vh - 56px);
+    background: var(--ivory);
+    flex-direction: column;
+    padding: 3rem 2rem;
+    transition: left 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94), right 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    border-top: 1px solid var(--border);
+    gap: 2rem;
+  }
+
+  .nav-links a { font-size: 0.85rem; letter-spacing: 2.5px; }
+  .nav-links.active { left: 0; }
+  .mobile-menu-btn { display: block; }
+
+  [dir="rtl"] .nav-links {
+    left: auto;
+    right: -100%;
+  }
+
+  [dir="rtl"] .nav-links.active {
+    right: 0;
+    left: auto;
+  }
+}
+
+.btn-language {
+  padding: 0.4rem 1rem;
+  background: transparent;
+  border: 1px solid var(--main-gold);
+  color: var(--dark-gold);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-family: 'Inter', sans-serif;
+  transition: all 0.25s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  cursor: pointer;
+}
+
+.btn-language:hover {
+  background: var(--main-gold);
+  color: var(--white);
+}

@@ -1,0 +1,55 @@
+.account-page {
+  padding: 4rem 0 5rem;
+  min-height: 70vh;
+  background: var(--ivory);
+}
+
+.account-card {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 2.5rem;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: var(--shadow-sm);
+}
+
+.account-card h1,
+.account-card h2 {
+  margin-bottom: 1.25rem;
+  color: var(--text-heading);
+}
+
+.account-subtitle {
+  margin-bottom: 2rem;
+  color: var(--text-mid);
+}
+
+.account-details {
+  margin-bottom: 2rem;
+  color: var(--text);
+}
+
+.account-details p {
+  margin: 0.5rem 0;
+}
+
+.password-form label {
+  display: block;
+  margin-bottom: 1rem;
+  color: var(--text-heading);
+}
+
+.password-form input {
+  width: 100%;
+  padding: 0.95rem 1rem;
+  margin-top: 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--text);
+}
+
+.password-form button {
+  margin-top: 1.5rem;
+}

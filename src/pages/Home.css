@@ -1,0 +1,491 @@
+/* ─── Home Page (Premium Dark) ───────────────────────── */
+
+/* Hero */
+.hero {
+  min-height: 72vh;
+  height: auto;
+  padding: 4rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at center, rgba(212, 175, 55, 0.1) 0%, var(--bg-color) 70%);
+  color: var(--text-heading);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  flex-direction: column;
+  transition: padding 0.4s ease, min-height 0.4s ease;
+}
+
+.hero.has-hero-image {
+  padding: 3rem 0;
+  padding-left: 0;
+  padding-right: 0;
+  min-height: 60vh;
+  overflow: hidden;
+}
+
+.hero-image-desktop,
+.hero-image-mobile {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 1.5rem;
+  border-radius: 0;
+  transition: margin-bottom 0.4s ease;
+  box-sizing: border-box;
+}
+
+.hero-image-desktop {
+  display: block;
+}
+
+.hero-image-mobile {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .hero-image-desktop {
+    display: none;
+  }
+  
+  .hero-image-mobile {
+    display: block;
+  }
+}
+
+.hero.has-hero-image::before {
+  display: none;
+}
+
+.hero-image {
+  width: 100%;
+  height: auto;
+  margin-bottom: 1.5rem;
+  border-radius: 0;
+  transition: margin-bottom 0.4s ease;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url('https://www.transparenttextures.com/patterns/stardust.png');
+  opacity: 0.1;
+  pointer-events: none;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 150px;
+  background: linear-gradient(to top, var(--bg-color), transparent);
+  pointer-events: none;
+}
+
+.hero.has-hero-image::after {
+  height: 100px;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  animation: fadeUp 1s ease-out forwards;
+  max-width: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.hero-content p,
+.hero-content .hero-phrase {
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+@keyframes fadeUp {
+  0% { opacity: 0; transform: translateY(30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.hero-content h1 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 6rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  letter-spacing: 0.05em;
+  line-height: 1;
+  text-transform: uppercase;
+  background: var(--gold-gradient);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 4px 15px rgba(212, 175, 55, 0.2));
+  transition: font-size 0.4s ease, margin-bottom 0.4s ease;
+}
+
+.has-hero-image .hero-content h1 {
+  font-size: 4.5rem;
+  margin-top: 0;
+}
+
+[dir="rtl"] .hero-content h1 {
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
+  letter-spacing: 0.05em !important;
+  text-transform: uppercase !important;
+  background: var(--gold-gradient) !important;
+  background-clip: text !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  filter: drop-shadow(0 4px 15px rgba(212, 175, 55, 0.2)) !important;
+}
+
+[dir="rtl"] .has-hero-image .hero-content h1 {
+  font-size: 4.5rem;
+}
+
+.hero-content p {
+  font-size: 1rem;
+  margin-bottom: 3rem;
+  color: var(--text-mid);
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  font-weight: 400;
+  font-family: 'Inter', sans-serif;
+  transition: font-size 0.4s ease, margin-bottom 0.4s ease;
+}
+
+.has-hero-image .hero-content p {
+  font-size: 0.9rem;
+  margin-bottom: 2rem;
+}
+
+[dir="rtl"] .hero-content > p:not(.hero-phrase) {
+  font-family: 'Inter', sans-serif !important;
+  letter-spacing: 4px !important;
+  text-transform: uppercase !important;
+  color: var(--text-mid) !important;
+}
+
+.hero-content .hero-phrase {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+  color: var(--text-mid);
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1.2;
+  text-transform: none;
+  font-family: 'Neirizi', 'Tajawal', 'Cairo', sans-serif;
+  transition: font-size 0.4s ease, margin-bottom 0.4s ease;
+}
+
+.has-hero-image .hero-content .hero-phrase {
+  font-size: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.has-hero-image .hero-content .btn {
+  margin-bottom: 1rem;
+}
+
+/* Active Drop Banner */
+.active-drop {
+  background: var(--surface);
+  padding: 4rem 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  position: relative;
+}
+
+.active-drop::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 2px;
+  background: var(--gold-gradient);
+  box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+}
+
+.drop-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.drop-header h2 {
+  color: var(--main-gold);
+  font-size: 2rem;
+  text-shadow: 0 2px 10px rgba(212, 175, 55, 0.1);
+}
+
+/* Section title */
+.section-title {
+  text-align: center;
+  margin-bottom: 3rem;
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: var(--text-heading);
+  position: relative;
+  display: block;
+  width: 100%;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 2px;
+  background: var(--main-gold);
+}
+
+.section-cta {
+  text-align: center;
+  margin-top: 3.5rem;
+}
+
+/* Centered featured grid — cards sit in the middle even if fewer than 4 */
+.featured-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.featured-grid > * {
+  /* Match the 4-col grid card width */
+  flex: 0 1 calc(25% - 1.5rem);
+  min-width: 220px;
+  max-width: 320px;
+}
+
+/* Brand Story */
+.brand-story {
+  background: var(--surface-alt);
+  color: var(--text-dark);
+  padding: 6rem 0;
+  position: relative;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.brand-story::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at right, rgba(212, 175, 55, 0.05) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.story-content {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.story-content h2 {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  color: var(--main-gold);
+}
+
+.story-content p {
+  font-size: 1.1rem;
+  line-height: 1.9;
+  margin-bottom: 2.5rem;
+  color: var(--text-mid);
+}
+
+/* Upcoming Drop Countdown */
+.upcoming-drop-countdown {
+  background: var(--bg-color);
+  color: var(--text-heading);
+  padding: 6rem 0;
+  text-align: center;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+}
+
+.countdown-card {
+  max-width: 640px;
+  margin: 0 auto;
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  padding: 3rem 2rem;
+  border-radius: 16px;
+  box-shadow: var(--shadow-gold);
+}
+
+.countdown-label {
+  color: var(--main-gold);
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 5px;
+  display: block;
+  margin-bottom: 1.5rem;
+  font-family: 'Inter', sans-serif;
+}
+
+.countdown-card h2 {
+  font-size: 3rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: var(--text-heading);
+}
+
+.drop-desc {
+  font-size: 1rem;
+  color: var(--text-mid);
+  margin-bottom: 3rem;
+  letter-spacing: 0.5px;
+}
+
+.timer-grid {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.timer-unit {
+  background: rgba(212, 175, 55, 0.05);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  padding: 1.5rem 1rem;
+  min-width: 100px;
+  border-radius: 8px;
+  box-shadow: inset 0 0 15px rgba(212, 175, 55, 0.05);
+}
+
+.timer-number {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 3rem;
+  font-weight: 600;
+  color: var(--main-gold);
+  display: block;
+  line-height: 1;
+  margin-bottom: 0.5rem;
+  text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+}
+
+.timer-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--text-mid);
+  font-family: 'Inter', sans-serif;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .hero { padding: 3rem 0; }
+  .hero.has-hero-image { overflow: hidden; }
+  .hero-content h1 { font-size: 4.5rem; }
+  .hero-content .hero-phrase { font-size: 1.35rem; }
+}
+
+@media (max-width: 768px) {
+  .hero { height: auto; padding: 3.5rem 1rem; }
+  .hero.has-hero-image { padding: 2rem 0; overflow: hidden; }
+  .hero-content h1 { font-size: 3.2rem; }
+  .hero-content .hero-phrase { font-size: 1.15rem; margin-bottom: 1.5rem; }
+  .hero-content p { font-size: 0.95rem; }
+
+  .drop-header {
+    flex-direction: column;
+    gap: 1.5rem;
+    text-align: center;
+  }
+
+  .featured-grid {
+    gap: 1.5rem;
+  }
+
+  .countdown-card h2 { font-size: 2rem; }
+  .timer-grid { flex-wrap: wrap; justify-content: center; gap: 1rem; }
+  .timer-unit { min-width: 90px; padding: 1rem; }
+  .timer-number { font-size: 1.9rem; }
+}
+
+@media (max-width: 480px) {
+  .hero { padding: 2rem 0.75rem; }
+  .hero.has-hero-image { padding: 1.5rem 0; overflow: hidden; }
+  .hero-content h1 { font-size: 2.3rem; }
+  .hero-content .hero-phrase { font-size: 1rem; margin-bottom: 1rem; }
+  .hero-content p { font-size: 0.82rem; }
+
+  .featured-grid > * {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+
+  .countdown-card { padding: 2rem 1.25rem; }
+  .timer-grid { gap: 0.7rem; }
+  .timer-unit { min-width: 70px; padding: 0.75rem; }
+  .timer-number { font-size: 1.6rem; }
+}
+
+/* Announcement Bar Marquee */
+.announcement-bar-moving {
+  background: var(--gold-gradient);
+  color: #1A1612;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  height: 42px;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+  z-index: 10;
+  width: 100%;
+}
+
+.announcement-bar-track {
+  display: flex;
+  width: max-content;
+  flex-wrap: nowrap;
+  animation: marquee-scroll 40s linear infinite;
+}
+
+.announcement-bar-track:hover {
+  animation-play-state: paused;
+}
+
+.announcement-text-item {
+  display: inline-block;
+  padding: 0 3rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+[dir="rtl"] .announcement-text-item {
+  font-family: 'Cairo', 'Tajawal', sans-serif;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+@keyframes marquee-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}

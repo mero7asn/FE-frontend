@@ -1,0 +1,109 @@
+/* ─── Luxury Footer ─────────────────────────────────── */
+.footer {
+  background: #120F0C; /* Luxurious deep espresso background */
+  color: #FCFBF8;
+  padding: 4.5rem 0 3rem;
+  border-top: 1px solid rgba(200, 164, 93, 0.15);
+  position: relative;
+}
+
+.footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 2px;
+  background: var(--gold-gradient);
+  box-shadow: 0 0 10px rgba(200, 164, 93, 0.4);
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+}
+
+.footer-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.footer-logo {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  background: var(--gold-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.footer-brand p {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  color: rgba(252, 251, 248, 0.5);
+  letter-spacing: 1px;
+}
+
+.footer-links {
+  display: flex;
+  gap: 3rem;
+}
+
+.footer-links a {
+  font-family: 'Inter', sans-serif;
+  color: rgba(252, 251, 248, 0.7);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.footer-links a:hover { 
+  color: var(--main-gold);
+  text-shadow: 0 0 8px rgba(200, 164, 93, 0.3);
+}
+
+.social-links { display: flex; gap: 1.5rem; }
+
+.social-links a {
+  color: rgba(252, 251, 248, 0.6);
+  font-size: 1.25rem;
+  transition: all 0.3s ease;
+}
+
+.social-links a:hover {
+  color: var(--main-gold);
+  transform: translateY(-4px);
+  filter: drop-shadow(0 4px 8px rgba(200, 164, 93, 0.3));
+}
+
+@media (max-width: 768px) {
+  .footer-content {
+    flex-direction: column;
+    text-align: center;
+    gap: 2rem;
+  }
+
+  .footer-links {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+  }
+
+  [dir="rtl"] .footer-content {
+    flex-direction: column;
+  }
+
+  [dir="rtl"] .footer-links {
+    flex-direction: row;
+    justify-content: center;
+  }
+}

@@ -1,0 +1,172 @@
+/* ─── About Page (Premium Dark) ───────────────────────── */
+.about-page {
+  padding-bottom: 6rem;
+  background: var(--bg-color);
+}
+
+/* Hero banner */
+.about-hero {
+  background: radial-gradient(circle at top right, rgba(212, 175, 55, 0.15) 0%, var(--bg-color) 70%);
+  color: var(--text-heading);
+  padding: 10rem 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.about-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url('https://www.transparenttextures.com/patterns/stardust.png');
+  opacity: 0.1;
+  pointer-events: none;
+}
+
+.about-hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 2px;
+  background: var(--gold-gradient);
+  box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+}
+
+.hero-subtitle {
+  color: var(--main-gold);
+  text-transform: uppercase;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  letter-spacing: 5px;
+  display: block;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+  position: relative;
+}
+
+.about-hero h1 {
+  font-size: 5.5rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+  position: relative;
+  text-shadow: 0 4px 20px rgba(212, 175, 55, 0.2);
+  line-height: 1;
+  background: var(--gold-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-tagline {
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  max-width: 600px;
+  margin: 0 auto;
+  color: var(--text-mid);
+  letter-spacing: 1.5px;
+  line-height: 1.8;
+  position: relative;
+}
+
+/* Body content */
+.about-content {
+  padding: 8rem 0;
+  background: var(--bg-color);
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6rem;
+}
+
+/* Section headings */
+.story-block h2,
+.values-block h2 {
+  font-size: 2.5rem;
+  font-weight: 600;
+  margin-bottom: 2.5rem;
+  position: relative;
+  display: inline-block;
+  color: var(--text-heading);
+  letter-spacing: 0.05em;
+}
+
+.story-block h2::after,
+.values-block h2::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 50px;
+  height: 2px;
+  background: var(--gold-gradient);
+  box-shadow: 0 0 8px rgba(212, 175, 55, 0.4);
+}
+
+.story-block p {
+  font-size: 1.05rem;
+  line-height: 1.9;
+  color: var(--text-dark);
+  margin-bottom: 1.5rem;
+  font-weight: 400;
+}
+
+/* Three Pillars */
+.value-item {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 3rem;
+  align-items: flex-start;
+  background: var(--glass-bg);
+  padding: 2rem;
+  border-radius: 12px;
+  border: 1px solid var(--glass-border);
+  transition: all 0.3s ease;
+}
+
+.value-item:hover {
+  transform: translateY(-3px);
+  border-color: var(--main-gold);
+  box-shadow: 0 8px 25px rgba(212, 175, 55, 0.1);
+}
+
+.value-num {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: var(--main-gold);
+  line-height: 1;
+  min-width: 40px;
+  text-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
+}
+
+.value-item h3 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 0.8rem;
+  color: var(--text-heading);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.value-item p {
+  font-size: 0.95rem;
+  color: var(--text-mid);
+  line-height: 1.8;
+  font-weight: 400;
+}
+
+@media (max-width: 992px) {
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 4rem;
+  }
+
+  .about-hero h1    { font-size: 3.5rem; }
+  .about-content    { padding: 5rem 0; }
+}

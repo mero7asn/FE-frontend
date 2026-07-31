@@ -1,0 +1,19 @@
+.language-toggle-btn {
+  padding: 0.4rem 0.9rem;
+  background: transparent;
+  border: 1px solid var(--main-gold);
+  color: var(--dark-gold);
+  font-size: 0.75rem;
+  font-weight: 600;
+  font-family: 'Cairo', 'Inter', sans-serif;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  border-radius: 4px;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.language-toggle-btn:hover {
+  background: var(--main-gold);
+  color: var(--white);
+}

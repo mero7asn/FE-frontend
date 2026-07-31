@@ -1,0 +1,285 @@
+/* ─── Admin Products Table ─────────────────────────────── */
+.admin-products {
+  padding: 3rem 0 5rem;
+  min-height: 70vh;
+  background: var(--ivory);
+}
+
+.products-table {
+  background: var(--white);
+  border: 1px solid var(--border);
+  overflow-x: auto;
+  box-shadow: var(--shadow-sm);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead {
+  background: var(--dark-charcoal);
+  color: var(--white);
+}
+
+th {
+  padding: 1rem 1.25rem;
+  text-align: left;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+thead tr th:first-child {
+  border-left: 2px solid var(--main-gold);
+}
+
+td {
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--border);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.88rem;
+  color: var(--text-dark);
+  vertical-align: middle;
+}
+
+tbody tr { transition: background-color 0.2s ease; }
+tbody tr:hover { background-color: var(--surface); }
+
+.product-thumb {
+  width: 52px;
+  height: 66px;
+  object-fit: cover;
+  border: 1px solid var(--border);
+  display: block;
+}
+
+/* Status badges */
+.status-badge {
+  padding: 0.25rem 0.7rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  display: inline-block;
+}
+
+.status-badge.available {
+  background: rgba(31, 168, 85, 0.08);
+  color: var(--whatsapp);
+  border: 1px solid rgba(31, 168, 85, 0.22);
+}
+
+.status-badge.unavailable {
+  background: rgba(192, 57, 43, 0.06);
+  color: #c0392b;
+  border: 1px solid rgba(192, 57, 43, 0.2);
+}
+
+/* Action buttons */
+.action-buttons {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.btn-edit,
+.btn-toggle,
+.btn-delete {
+  padding: 0.35rem 0.8rem;
+  border: none;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-edit { background: var(--main-gold); color: var(--white); }
+.btn-edit:hover { background: var(--dark-gold); }
+
+.btn-toggle {
+  background: transparent;
+  color: var(--text-dark);
+  border: 1px solid var(--border);
+}
+
+.btn-toggle:hover {
+  border-color: var(--text-heading);
+  background: var(--text-heading);
+  color: var(--white);
+}
+
+.btn-delete {
+  background: transparent;
+  color: #c0392b;
+  border: 1px solid rgba(192, 57, 43, 0.3);
+}
+
+.btn-delete:hover {
+  background: #c0392b;
+  color: var(--white);
+  border-color: #c0392b;
+}
+
+@media (max-width: 768px) {
+  th, td { padding: 0.75rem; }
+  .action-buttons { flex-direction: column; }
+}
+
+/* Sell button */
+.btn-sell {
+  padding: 0.35rem 0.8rem;
+  border: 1px solid var(--border-strong);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: transparent;
+  color: var(--main-gold);
+}
+
+.btn-sell:hover {
+  background: var(--main-gold);
+  color: var(--white);
+}
+
+/* Modal styles */
+.sell-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(4px);
+  animation: fadeIn 0.2s ease;
+}
+
+.sell-modal {
+  background: var(--white);
+  padding: 2.5rem;
+  border-radius: 12px;
+  max-width: 450px;
+  width: 90%;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  border-left: 4px solid var(--main-gold);
+  animation: slideUp 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.sell-modal h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--text-heading);
+}
+
+.sell-modal .product-title {
+  font-size: 1.05rem;
+  color: var(--text-mid);
+  margin-bottom: 2rem;
+  font-weight: 500;
+}
+
+.sell-modal .form-group {
+  margin-bottom: 2rem;
+}
+
+.sell-modal label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-mid);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 0.75rem;
+}
+
+.sell-select {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  outline: none;
+  background: var(--surface);
+  color: var(--text-dark);
+}
+
+.sell-select:focus {
+  border-color: var(--main-gold);
+}
+
+.sell-modal .modal-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.sell-modal .modal-actions button {
+  flex: 1;
+  padding: 0.8rem 1.5rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border-radius: 6px;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s ease;
+}
+
+.btn-confirm-sell {
+  background: var(--whatsapp);
+  color: var(--white);
+}
+
+.btn-confirm-sell:hover:not(:disabled) {
+  background: #1b8e4b;
+}
+
+.btn-cancel-sell,
+.btn-close {
+  background: var(--surface);
+  color: var(--text-dark);
+  border: 1px solid var(--border) !important;
+}
+
+.btn-cancel-sell:hover:not(:disabled),
+.btn-close:hover {
+  background: var(--border);
+}
+
+.sell-modal button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.warning-text {
+  color: #c0392b;
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 1.5rem;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}

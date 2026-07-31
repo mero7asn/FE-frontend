@@ -1,0 +1,64 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "build"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/static/(.*)",
+      "headers": {
+        "cache-control": "s-maxage=31536000,immutable"
+      },
+      "dest": "/static/$1"
+    },
+    {
+      "src": "/favicon.ico",
+      "dest": "/favicon.ico"
+    },
+    {
+      "src": "/egypt-governorates.json",
+      "dest": "/egypt-governorates.json"
+    },
+    {
+      "src": "/logo.png",
+      "dest": "/logo.png"
+    },
+    {
+      "src": "/devtools-block.js",
+      "dest": "/devtools-block.js"
+    },
+    {
+      "src": "/screenshot-block.js",
+      "dest": "/screenshot-block.js"
+    },
+    {
+      "src": "/sharing-card.jpg",
+      "dest": "/sharing-card.jpg"
+    },
+    {
+      "src": "/sizes.jpg",
+      "dest": "/sizes.jpg"
+    },
+    {
+      "src": "/(.*)",
+      "missing": [
+        { "type": "header", "key": "x-vercel-ip-country", "value": "EG" }
+      ],
+      "status": 403,
+      "dest": "/index.html",
+      "headers": {
+        "x-geo-blocked": "true"
+      }
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
+  ]
+}
