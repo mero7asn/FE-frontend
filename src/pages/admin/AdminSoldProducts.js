@@ -28,7 +28,7 @@ const parseProductName = (name = '') => {
 };
 
 const AdminSoldProducts = () => {
-  const { isSuperAdmin } = useAuth();
+  const { isAdmin } = useAuth();
   const [soldProducts, setSoldProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedCard, setSelectedCard] = useState(null);
@@ -45,12 +45,12 @@ const AdminSoldProducts = () => {
   useEffect(() => {
     loadSoldProducts();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filterTab, isSuperAdmin]);
+  }, [filterTab, isAdmin]);
 
   const loadSoldProducts = async () => {
     try {
       setLoading(true);
-      const params = isSuperAdmin ? { includeDeleted: 'true' } : {};
+      const params = isAdmin ? { includeDeleted: 'true' } : {};
       const { data } = await productAPI.getSoldProducts(params);
       setSoldProducts(data);
     } catch (error) {
@@ -177,7 +177,7 @@ const AdminSoldProducts = () => {
   };
 
   const filtered = soldProducts.filter(sp => {
-    if (isSuperAdmin) {
+    if (isAdmin) {
       if (filterTab === 'active' && sp.isDeleted) return false;
       if (filterTab === 'deleted' && !sp.isDeleted) return false;
     } else {
@@ -218,8 +218,8 @@ const AdminSoldProducts = () => {
           <div className="sp-badge">{filtered.length} Sales</div>
         </div>
 
-        {/* Super Admin Filter Tabs & Search Bar */}
-        {isSuperAdmin && (
+        {/* Admin Filter Tabs & Search Bar */}
+        {isAdmin && (
           <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1rem', flexWrap: 'wrap' }}>
             <button
               type="button"
@@ -392,7 +392,7 @@ const AdminSoldProducts = () => {
                           👤 Attach Customer
                         </button>
                       )}
-                      {isSuperAdmin && (
+                      {isAdmin && (
                         item.isDeleted ? (
                           <button
                             className="sp-card-btn"
@@ -407,7 +407,7 @@ const AdminSoldProducts = () => {
                             className="sp-card-btn"
                             style={{ marginTop: '0.4rem', background: '#FFEBEE', color: '#C62828', border: '1px solid #EF5350' }}
                             onClick={() => handleDeleteSoldProduct(item)}
-                            title="Delete/revoke this sale (Super Admin only)"
+                            title="Delete/revoke this sale"
                           >
                             🗑️ Delete
                           </button>
