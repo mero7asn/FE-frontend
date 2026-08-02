@@ -356,15 +356,15 @@ const AdminSoldProducts = () => {
                     </td>
                     <td>
                       <div className="sp-customer-cell" style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
-                        <span style={{ fontWeight: '600', color: 'var(--text-heading)', fontSize: '0.85rem' }}>
+                        <span style={{ fontWeight: '700', color: '#000000', fontSize: '0.85rem' }}>
                           {item.customerName || 'Direct Customer'}
                         </span>
                         {item.customerPhone ? (
-                          <span style={{ fontSize: '0.75rem', color: '#7A6F5E', fontFamily: 'monospace' }}>
+                          <span style={{ fontSize: '0.75rem', color: '#000000', fontFamily: 'monospace', fontWeight: '700' }}>
                             📞 {item.customerPhone}
                           </span>
                         ) : (
-                          <span style={{ fontSize: '0.75rem', color: '#A09585', italic: 'true' }}>No phone recorded</span>
+                          <span style={{ fontSize: '0.75rem', color: '#888888', fontStyle: 'italic' }}>No phone recorded</span>
                         )}
                       </div>
                     </td>
@@ -490,10 +490,10 @@ const AdminSoldProducts = () => {
               {/* Customer Info Row if available */}
               {(selectedCard.customerName || selectedCard.customerPhone) && (
                 <div className="auth-customer-row" style={{
-                  background: 'rgba(200, 164, 93, 0.08)',
+                  background: '#FFFFFF',
                   padding: '0.6rem 0.8rem',
                   borderRadius: '6px',
-                  border: '1px solid rgba(200, 164, 93, 0.2)',
+                  border: '1px solid #C8A45D',
                   marginBottom: '1rem',
                   display: 'flex',
                   justifyContent: 'space-between',
@@ -501,10 +501,10 @@ const AdminSoldProducts = () => {
                 }}>
                   <div style={{ textAlign: 'left' }}>
                     <span style={{ display: 'block', fontSize: '0.6rem', color: '#C8A45D', fontWeight: '700', letterSpacing: '1px' }}>ISSUED TO CUSTOMER</span>
-                    <span style={{ display: 'block', fontSize: '0.85rem', color: '#FDFBF7', fontWeight: '600' }}>{selectedCard.customerName || 'Direct Customer'}</span>
+                    <span style={{ display: 'block', fontSize: '0.85rem', color: '#000000', fontWeight: '700' }}>{selectedCard.customerName || 'Direct Customer'}</span>
                   </div>
                   {selectedCard.customerPhone && (
-                    <span style={{ fontSize: '0.8rem', color: '#E8D6B9', fontFamily: 'monospace', fontWeight: '600' }}>
+                    <span style={{ fontSize: '0.85rem', color: '#000000', fontFamily: 'monospace', fontWeight: '700' }}>
                       {selectedCard.customerPhone}
                     </span>
                   )}
