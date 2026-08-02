@@ -5,10 +5,17 @@ import { useAuth } from '../../context/AuthContext';
 import { toast } from 'react-toastify';
 import './AdminProducts.css';
 
+const isProductSoldOut = (p) => {
+  if (!p.isAvailable) return true;
+  if (!p.sizes || p.sizes.length === 0) return true;
+  return p.sizes.every(s => typeof s === 'object' ? (!s.isAvailable || s.stock <= 0) : false);
+};
+
 const AdminProducts = () => {
   const { hasPermission } = useAuth();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [tab, setTab] = useState('active'); // 'active' | 'archive' | 'all'
 
   const [isSellModalOpen, setIsSellModalOpen] = useState(false);
   const [activeProduct, setActiveProduct] = useState(null);
@@ -109,16 +116,66 @@ const AdminProducts = () => {
 
   if (loading) return <div className="loading">Loading...</div>;
 
+  const activeProducts = products.filter(p => !isProductSoldOut(p));
+  const archivedProducts = products.filter(p => isProductSoldOut(p));
+
+  const displayedProducts = tab === 'active'
+    ? activeProducts
+    : tab === 'archive'
+    ? archivedProducts
+    : products;
+
   return (
     <div className="admin-products">
       <div className="container">
         <div className="admin-header">
-          <h1>Manage Products</h1>
+          <div>
+            <h1>Manage Products</h1>
+            <p style={{ color: '#7A6F5E', fontSize: '0.9rem', marginTop: '0.2rem' }}>
+              Sold out items automatically move to <strong>Archived (Sold Out)</strong>. Restocking a product restores it to Shop and removes it from Gallery.
+            </p>
+          </div>
           {hasPermission('products_create') && (
             <Link to="/admin/products/new" className="btn btn-primary">
               Add New Product
             </Link>
           )}
+        </div>
+
+        {/* Tab Filters */}
+        <div style={{ display: 'flex', gap: '0.6rem', margin: '1rem 0 1.5rem', flexWrap: 'wrap' }}>
+          <button
+            type="button"
+            className={`btn ${tab === 'active' ? 'btn-primary' : 'btn-secondary'}`}
+            style={{ padding: '0.5rem 1.25rem', borderRadius: '8px', fontSize: '0.9rem', fontWeight: '600' }}
+            onClick={() => setTab('active')}
+          >
+            Active Products ({activeProducts.length})
+          </button>
+          <button
+            type="button"
+            className={`btn ${tab === 'archive' ? 'btn-primary' : 'btn-secondary'}`}
+            style={{
+              padding: '0.5rem 1.25rem',
+              borderRadius: '8px',
+              fontSize: '0.9rem',
+              fontWeight: '600',
+              background: tab === 'archive' ? '#8D6E63' : undefined,
+              borderColor: tab === 'archive' ? '#8D6E63' : undefined,
+              color: tab === 'archive' ? '#fff' : undefined
+            }}
+            onClick={() => setTab('archive')}
+          >
+            📁 Archived (Sold Out) ({archivedProducts.length})
+          </button>
+          <button
+            type="button"
+            className={`btn ${tab === 'all' ? 'btn-primary' : 'btn-secondary'}`}
+            style={{ padding: '0.5rem 1.25rem', borderRadius: '8px', fontSize: '0.9rem', fontWeight: '600' }}
+            onClick={() => setTab('all')}
+          >
+            All Products ({products.length})
+          </button>
         </div>
 
         <div className="products-table">
@@ -136,62 +193,85 @@ const AdminProducts = () => {
               </tr>
             </thead>
             <tbody>
-              {products.map(product => (
-                <tr key={product._id}>
-                  <td>
-                    <img 
-                      src={product.images?.[0]?.url} 
-                      alt={product.name}
-                      className="product-thumb"
-                    />
-                  </td>
-                <td>{product.name}</td>
-                <td>{product.originalPrice ? `EGP ${Number(product.originalPrice).toLocaleString('en-EG')}` : '-'}</td>
-                <td>{product.discountPercentage > 0 ? `${product.discountPercentage}%` : '-'}</td>
-                <td>EGP {Number(product.price).toLocaleString('en-EG')}</td>
-                <td>
-                    <span className={`status-badge ${product.isAvailable ? 'available' : 'unavailable'}`}>
-                      {product.isAvailable ? 'Available' : 'Unavailable'}
-                    </span>
-                  </td>
-                  <td>
-                    {product.isFeatured ? '⭐ Yes' : 'No'}
-                  </td>
-                  <td>
-                    <div className="action-buttons">
-                      {hasPermission('products_view') && (
-                        <button 
-                          onClick={() => openSellModal(product)}
-                          className="btn-sell"
-                        >
-                          Sell
-                        </button>
-                      )}
-                      {hasPermission('products_edit') && (
-                        <Link to={`/admin/products/edit/${product._id}`} className="btn-edit">
-                          Edit
-                        </Link>
-                      )}
-                      {hasPermission('products_edit') && (
-                        <button 
-                          onClick={() => handleToggleAvailability(product._id)}
-                          className="btn-toggle"
-                        >
-                          Toggle
-                        </button>
-                      )}
-                      {hasPermission('products_delete') && (
-                        <button 
-                          onClick={() => handleDelete(product._id)}
-                          className="btn-delete"
-                        >
-                          Delete
-                        </button>
-                      )}
-                    </div>
+              {displayedProducts.length === 0 ? (
+                <tr>
+                  <td colSpan="8" style={{ textAlign: 'center', padding: '2rem', color: '#7A6F5E' }}>
+                    No products found in this section.
                   </td>
                 </tr>
-              ))}
+              ) : (
+                displayedProducts.map(product => {
+                  const soldOut = isProductSoldOut(product);
+                  return (
+                    <tr key={product._id} style={soldOut ? { background: '#FAFAF8', opacity: 0.9 } : {}}>
+                      <td>
+                        <img 
+                          src={product.images?.[0]?.url} 
+                          alt={product.name}
+                          className="product-thumb"
+                        />
+                      </td>
+                      <td>
+                        <strong>{product.name}</strong>
+                      </td>
+                      <td>{product.originalPrice ? `EGP ${Number(product.originalPrice).toLocaleString('en-EG')}` : '-'}</td>
+                      <td>{product.discountPercentage > 0 ? `${product.discountPercentage}%` : '-'}</td>
+                      <td>EGP {Number(product.price).toLocaleString('en-EG')}</td>
+                      <td>
+                        {soldOut ? (
+                          <span className="status-badge unavailable" style={{ background: '#EFEBE9', color: '#5D4037', border: '1px solid #8D6E63', fontWeight: '700' }}>
+                            📁 Archived (Sold Out)
+                          </span>
+                        ) : (
+                          <span className={`status-badge ${product.isAvailable ? 'available' : 'unavailable'}`}>
+                            {product.isAvailable ? 'Available' : 'Unavailable'}
+                          </span>
+                        )}
+                      </td>
+                      <td>
+                        {product.isFeatured ? '⭐ Yes' : 'No'}
+                      </td>
+                      <td>
+                        <div className="action-buttons">
+                          {!soldOut && hasPermission('products_view') && (
+                            <button 
+                              onClick={() => openSellModal(product)}
+                              className="btn-sell"
+                            >
+                              Sell
+                            </button>
+                          )}
+                          {hasPermission('products_edit') && (
+                            <Link
+                              to={`/admin/products/edit/${product._id}`}
+                              className="btn-edit"
+                              style={soldOut ? { background: '#2E7D32', color: '#fff', border: '1px solid #2E7D32' } : {}}
+                            >
+                              {soldOut ? '📦 Restock' : 'Edit'}
+                            </Link>
+                          )}
+                          {hasPermission('products_edit') && (
+                            <button 
+                              onClick={() => handleToggleAvailability(product._id)}
+                              className="btn-toggle"
+                            >
+                              Toggle
+                            </button>
+                          )}
+                          {hasPermission('products_delete') && (
+                            <button 
+                              onClick={() => handleDelete(product._id)}
+                              className="btn-delete"
+                            >
+                              Delete
+                            </button>
+                          )}
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })
+              )}
             </tbody>
           </table>
         </div>
