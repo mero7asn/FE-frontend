@@ -14,7 +14,7 @@ const Gallery = () => {
       try {
         const { data } = await productAPI.getAll();
         const soldOut = data.filter(p => {
-          if (p.isAvailable) return false;
+          if (!p.isAvailable) return true;
           if (!p.sizes || p.sizes.length === 0) return true;
           return p.sizes.every(s =>
             typeof s === 'object' ? (!s.isAvailable || s.stock <= 0) : false
