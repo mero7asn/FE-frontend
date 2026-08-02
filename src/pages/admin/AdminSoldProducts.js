@@ -44,6 +44,7 @@ const AdminSoldProducts = () => {
 
   useEffect(() => {
     loadSoldProducts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filterTab, isSuperAdmin]);
 
   const loadSoldProducts = async () => {
