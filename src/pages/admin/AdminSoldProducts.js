@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { productAPI } from '../../services/api';
+import { useAuth } from '../../context/AuthContext';
 import { toast } from 'react-toastify';
 import html2canvas from 'html2canvas';
 import './AdminSoldProducts.css';
@@ -27,10 +28,12 @@ const parseProductName = (name = '') => {
 };
 
 const AdminSoldProducts = () => {
+  const { isSuperAdmin } = useAuth();
   const [soldProducts, setSoldProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedCard, setSelectedCard] = useState(null);
   const [search, setSearch] = useState('');
+  const [filterTab, setFilterTab] = useState('active'); // 'active' | 'deleted' | 'all'
   const cardRef = useRef(null);
 
   // Attach customer modal state
@@ -41,17 +44,40 @@ const AdminSoldProducts = () => {
 
   useEffect(() => {
     loadSoldProducts();
-  }, []);
+  }, [filterTab, isSuperAdmin]);
 
   const loadSoldProducts = async () => {
     try {
       setLoading(true);
-      const { data } = await productAPI.getSoldProducts();
+      const params = isSuperAdmin ? { includeDeleted: 'true' } : {};
+      const { data } = await productAPI.getSoldProducts(params);
       setSoldProducts(data);
     } catch (error) {
       toast.error('Failed to load sold products');
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleDeleteSoldProduct = async (item) => {
+    if (!window.confirm(`Are you sure you want to delete/revoke sold product (UOO: ${item.uooNumber})?\n\nThis will add 1 unit back to product stock.`)) return;
+    try {
+      await productAPI.deleteSoldProduct(item._id);
+      toast.success(`Sold product record ${item.uooNumber} deleted and stock restored.`);
+      loadSoldProducts();
+    } catch (error) {
+      toast.error(error.displayMessage || 'Failed to delete sold product');
+    }
+  };
+
+  const handleRestoreSoldProduct = async (item) => {
+    if (!window.confirm(`Are you sure you want to restore sold product (UOO: ${item.uooNumber})?\n\nThis will deduct 1 unit from stock if available.`)) return;
+    try {
+      await productAPI.restoreSoldProduct(item._id);
+      toast.success(`Sold product record ${item.uooNumber} restored.`);
+      loadSoldProducts();
+    } catch (error) {
+      toast.error(error.displayMessage || 'Failed to restore sold product');
     }
   };
 
@@ -150,6 +176,13 @@ const AdminSoldProducts = () => {
   };
 
   const filtered = soldProducts.filter(sp => {
+    if (isSuperAdmin) {
+      if (filterTab === 'active' && sp.isDeleted) return false;
+      if (filterTab === 'deleted' && !sp.isDeleted) return false;
+    } else {
+      if (sp.isDeleted) return false;
+    }
+
     const q = search.toLowerCase();
     return (
       sp.productName?.toLowerCase().includes(q) ||
@@ -181,8 +214,38 @@ const AdminSoldProducts = () => {
             <h1 className="sp-title">Sold Products</h1>
             <p className="sp-subtitle">Authenticity records for every sold item</p>
           </div>
-          <div className="sp-badge">{soldProducts.length} Total Sales</div>
+          <div className="sp-badge">{filtered.length} Sales</div>
         </div>
+
+        {/* Super Admin Filter Tabs & Search Bar */}
+        {isSuperAdmin && (
+          <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1rem', flexWrap: 'wrap' }}>
+            <button
+              type="button"
+              className={`sp-card-btn ${filterTab === 'active' ? 'active' : ''}`}
+              style={{ background: filterTab === 'active' ? 'var(--dark-charcoal)' : 'var(--surface)', color: filterTab === 'active' ? '#fff' : 'var(--text-dark)', padding: '0.5rem 1rem' }}
+              onClick={() => setFilterTab('active')}
+            >
+              Active Sales
+            </button>
+            <button
+              type="button"
+              className={`sp-card-btn ${filterTab === 'deleted' ? 'active' : ''}`}
+              style={{ background: filterTab === 'deleted' ? '#C62828' : 'var(--surface)', color: filterTab === 'deleted' ? '#fff' : '#C62828', border: '1px solid #EF5350', padding: '0.5rem 1rem' }}
+              onClick={() => setFilterTab('deleted')}
+            >
+              🗑️ Deleted Sales
+            </button>
+            <button
+              type="button"
+              className={`sp-card-btn ${filterTab === 'all' ? 'active' : ''}`}
+              style={{ background: filterTab === 'all' ? 'var(--dark-charcoal)' : 'var(--surface)', color: filterTab === 'all' ? '#fff' : 'var(--text-dark)', padding: '0.5rem 1rem' }}
+              onClick={() => setFilterTab('all')}
+            >
+              All Records
+            </button>
+          </div>
+        )}
 
         {/* Search bar */}
         <div className="sp-search-wrap">
@@ -226,7 +289,7 @@ const AdminSoldProducts = () => {
               </thead>
               <tbody>
                 {filtered.map(item => (
-                  <tr key={item._id}>
+                  <tr key={item._id} style={item.isDeleted ? { opacity: 0.75, background: 'rgba(255, 235, 238, 0.3)' } : {}}>
                     <td>
                       <div className="sp-product-cell">
                         {item.product?.images?.[0]?.url && (
@@ -236,14 +299,28 @@ const AdminSoldProducts = () => {
                             alt={item.productName}
                           />
                         )}
-                        <span className="sp-product-name">{item.productName}</span>
+                        <span className="sp-product-name">
+                          {item.productName}
+                          {item.isDeleted && (
+                            <span style={{
+                              display: 'inline-block',
+                              padding: '0.15rem 0.4rem',
+                              borderRadius: '4px',
+                              fontSize: '0.65rem',
+                              fontWeight: '700',
+                              background: '#FFEBEE',
+                              color: '#C62828',
+                              marginLeft: '0.4rem'
+                            }}>DELETED</span>
+                          )}
+                        </span>
                       </div>
                     </td>
                     <td>
                       <span className="sp-product-num">{item.productNumber}</span>
                     </td>
                     <td>
-                      <span className="sp-uoo">{item.uooNumber}</span>
+                      <span className="sp-uoo" style={item.isDeleted ? { textDecoration: 'line-through', color: '#888' } : {}}>{item.uooNumber}</span>
                     </td>
                     <td>
                       <div className="sp-specs" style={{ display: 'flex', gap: '0.4rem', flexDirection: 'column', alignItems: 'flex-start' }}>
@@ -304,7 +381,7 @@ const AdminSoldProducts = () => {
                       >
                         🪹 View Card
                       </button>
-                      {item.saleChannel === 'amazon' && (
+                      {item.saleChannel === 'amazon' && !item.isDeleted && (
                         <button
                           className="sp-card-btn"
                           style={{ marginTop: '0.4rem', background: '#FFF3E0', color: '#E65100', border: '1px solid #FF9900' }}
@@ -313,6 +390,27 @@ const AdminSoldProducts = () => {
                         >
                           👤 Attach Customer
                         </button>
+                      )}
+                      {isSuperAdmin && (
+                        item.isDeleted ? (
+                          <button
+                            className="sp-card-btn"
+                            style={{ marginTop: '0.4rem', background: '#E8F5E9', color: '#2E7D32', border: '1px solid #4CAF50' }}
+                            onClick={() => handleRestoreSoldProduct(item)}
+                            title="Restore this deleted sale"
+                          >
+                            🔄 Restore
+                          </button>
+                        ) : (
+                          <button
+                            className="sp-card-btn"
+                            style={{ marginTop: '0.4rem', background: '#FFEBEE', color: '#C62828', border: '1px solid #EF5350' }}
+                            onClick={() => handleDeleteSoldProduct(item)}
+                            title="Delete/revoke this sale (Super Admin only)"
+                          >
+                            🗑️ Delete
+                          </button>
+                        )
                       )}
                     </td>
                   </tr>

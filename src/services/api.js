@@ -90,9 +90,11 @@ export const productAPI = {
   toggleAvailability: (id) => api.patch(`/products/${id}/toggle-availability`),
   sell: (id, data) => api.post(`/products/${id}/sell`, data),
   delete: (id) => api.delete(`/products/${id}`),
-  getSoldProducts: () => api.get('/products/sold'),
+  getSoldProducts: (params) => api.get('/products/sold', { params }),
   getSoldProduct: (id) => api.get(`/products/sold/${id}`),
   updateSoldProductCustomer: (id, data) => api.patch(`/products/sold/${id}/customer`, data),
+  deleteSoldProduct: (id) => api.delete(`/products/sold/${id}`),
+  restoreSoldProduct: (id) => api.patch(`/products/sold/${id}/restore`),
   verifyUOO: (productNumber, uooNumber) => api.get(`/products/verify-uoo?productNumber=${productNumber}&uooNumber=${uooNumber}`)
 };
 
