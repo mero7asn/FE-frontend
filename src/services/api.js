@@ -20,11 +20,12 @@ api.interceptors.request.use((config) => {
 
   const methods = ['post', 'put', 'patch'];
   const method = config.method?.toLowerCase();
-  if (methods.includes(method) && config.data) {
+  if (methods.includes(method)) {
+    const data = config.data !== undefined ? config.data : {};
     const isFormData =
       typeof FormData !== 'undefined' &&
-      (config.data instanceof FormData ||
-        (config.data && config.data.constructor && config.data.constructor.name === 'FormData'));
+      (data instanceof FormData ||
+        (data && data.constructor && data.constructor.name === 'FormData'));
 
     if (isFormData) {
       // Let Axios set the multipart/form-data Content-Type with boundary.
@@ -32,7 +33,7 @@ api.interceptors.request.use((config) => {
       delete config.headers['content-type'];
     } else {
       // Serialize to string if not already, matching what the backend will JSON.parse then re-stringify
-      const bodyObj = typeof config.data === 'string' ? JSON.parse(config.data) : config.data;
+      const bodyObj = typeof data === 'string' ? JSON.parse(data) : data;
       const payload = JSON.stringify(bodyObj);
       config.headers['X-Request-Signature'] = hmac(payload);
       config.headers['Content-Type'] = 'application/json';
