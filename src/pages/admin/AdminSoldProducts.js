@@ -33,6 +33,12 @@ const AdminSoldProducts = () => {
   const [search, setSearch] = useState('');
   const cardRef = useRef(null);
 
+  // Attach customer modal state
+  const [attachItem, setAttachItem] = useState(null);
+  const [attachName, setAttachName] = useState('');
+  const [attachPhone, setAttachPhone] = useState('');
+  const [attaching, setAttaching] = useState(false);
+
   useEffect(() => {
     loadSoldProducts();
   }, []);
@@ -51,6 +57,36 @@ const AdminSoldProducts = () => {
 
   const handleViewCard = (item) => {
     setSelectedCard(item);
+  };
+
+  const openAttachModal = (item) => {
+    setAttachItem(item);
+    setAttachName(item.customerName || '');
+    setAttachPhone(item.customerPhone || '');
+  };
+
+  const closeAttachModal = () => {
+    setAttachItem(null);
+    setAttachName('');
+    setAttachPhone('');
+  };
+
+  const handleAttachCustomer = async () => {
+    if (!attachItem) return;
+    setAttaching(true);
+    try {
+      await productAPI.updateSoldProductCustomer(attachItem._id, {
+        customerName: attachName.trim() || undefined,
+        customerPhone: attachPhone.trim() || undefined
+      });
+      toast.success('Customer info attached to certificate');
+      closeAttachModal();
+      loadSoldProducts();
+    } catch (error) {
+      toast.error(error.displayMessage || 'Failed to attach customer info');
+    } finally {
+      setAttaching(false);
+    }
   };
 
   const handlePrint = () => {
@@ -181,6 +217,7 @@ const AdminSoldProducts = () => {
                   <th>Product #</th>
                   <th>UOO Number</th>
                   <th>Size</th>
+                  <th>Channel</th>
                   <th>Customer Info</th>
                   <th>Sold By</th>
                   <th>Date</th>
@@ -226,6 +263,20 @@ const AdminSoldProducts = () => {
                       </div>
                     </td>
                     <td>
+                      <span style={{
+                        display: 'inline-block',
+                        padding: '0.25rem 0.6rem',
+                        borderRadius: '12px',
+                        fontSize: '0.75rem',
+                        fontWeight: '700',
+                        background: item.saleChannel === 'amazon' ? '#FFF3E0' : '#E8F5E9',
+                        color: item.saleChannel === 'amazon' ? '#E65100' : '#2E7D32',
+                        border: `1px solid ${item.saleChannel === 'amazon' ? '#FF9900' : '#4CAF50'}`
+                      }}>
+                        {item.saleChannel === 'amazon' ? '📦 Amazon' : '🌐 Website'}
+                      </span>
+                    </td>
+                    <td>
                       <div className="sp-customer-cell" style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
                         <span style={{ fontWeight: '600', color: 'var(--text-heading)', fontSize: '0.85rem' }}>
                           {item.customerName || 'Direct Customer'}
@@ -251,8 +302,18 @@ const AdminSoldProducts = () => {
                         onClick={() => handleViewCard(item)}
                         title="View Authenticity Card"
                       >
-                        🪪 View Card
+                        🪹 View Card
                       </button>
+                      {item.saleChannel === 'amazon' && (
+                        <button
+                          className="sp-card-btn"
+                          style={{ marginTop: '0.4rem', background: '#FFF3E0', color: '#E65100', border: '1px solid #FF9900' }}
+                          onClick={() => openAttachModal(item)}
+                          title="Attach buyer info to certificate"
+                        >
+                          👤 Attach Customer
+                        </button>
+                      )}
                     </td>
                   </tr>
                 ))}
@@ -447,6 +508,56 @@ const AdminSoldProducts = () => {
               <button className="card-action-btn card-action-btn--image" onClick={() => handleDownloadImage(selectedCard)}>
                 📥 Download Image
               </button>
+            </div>
+          </div>
+        </div>
+      )}
+      {/* Attach Customer Modal (Amazon sales) */}
+      {attachItem && (
+        <div className="card-overlay" onClick={closeAttachModal}>
+          <div className="card-modal" style={{ maxWidth: '420px' }} onClick={e => e.stopPropagation()}>
+            <button className="card-close" onClick={closeAttachModal}>✕</button>
+            <h2 style={{ marginBottom: '0.25rem' }}>👤 Attach Customer Info</h2>
+            <p style={{ fontSize: '0.85rem', color: '#7A6F5E', marginBottom: '1.25rem' }}>
+              Amazon sale — UOO: <strong>{attachItem.uooNumber}</strong>
+            </p>
+
+            <div className="form-group" style={{ marginBottom: '1rem' }}>
+              <label style={{ display: 'block', fontWeight: '600', marginBottom: '0.4rem' }}>Customer Name</label>
+              <input
+                type="text"
+                className="sell-select"
+                placeholder="e.g. Ahmed Hassan"
+                value={attachName}
+                onChange={e => setAttachName(e.target.value)}
+              />
+            </div>
+
+            <div className="form-group" style={{ marginBottom: '1.5rem' }}>
+              <label style={{ display: 'block', fontWeight: '600', marginBottom: '0.4rem' }}>Customer Phone</label>
+              <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+                <span style={{ padding: '0.8rem', background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: '6px', fontWeight: '600', fontSize: '0.9rem' }}>🇪🇬 +20</span>
+                <input
+                  type="tel"
+                  className="sell-select"
+                  placeholder="e.g. 01012345678"
+                  value={attachPhone}
+                  onChange={e => setAttachPhone(e.target.value)}
+                  style={{ flex: 1 }}
+                />
+              </div>
+            </div>
+
+            <div className="modal-actions">
+              <button
+                className="btn-confirm-sell"
+                style={{ background: '#FF9900', borderColor: '#FF9900' }}
+                onClick={handleAttachCustomer}
+                disabled={attaching || (!attachName.trim() && !attachPhone.trim())}
+              >
+                {attaching ? 'Saving...' : 'Save to Certificate'}
+              </button>
+              <button className="btn-cancel-sell" onClick={closeAttachModal} disabled={attaching}>Cancel</button>
             </div>
           </div>
         </div>

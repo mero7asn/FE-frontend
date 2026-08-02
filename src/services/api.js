@@ -92,6 +92,7 @@ export const productAPI = {
   delete: (id) => api.delete(`/products/${id}`),
   getSoldProducts: () => api.get('/products/sold'),
   getSoldProduct: (id) => api.get(`/products/sold/${id}`),
+  updateSoldProductCustomer: (id, data) => api.patch(`/products/sold/${id}/customer`, data),
   verifyUOO: (productNumber, uooNumber) => api.get(`/products/verify-uoo?productNumber=${productNumber}&uooNumber=${uooNumber}`)
 };
 
