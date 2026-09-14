@@ -22,6 +22,49 @@ const parseProductName = (name = '') => {
   return { en: name, ar: '' };
 };
 
+// Extracts productNumber and uooNumber safely even when # hashtag breaks standard URL query strings
+const extractVerificationParams = (searchParams) => {
+  let pNum = searchParams.get('productNumber') || searchParams.get('pNum') || '';
+  let uoo = searchParams.get('uoo') || searchParams.get('uooNumber') || '';
+
+  const hash = window.location.hash || '';
+  const rawSearch = window.location.search || '';
+
+  if (hash) {
+    if (!pNum && /productNumber=/i.test(hash)) {
+      const pMatch = hash.match(/productNumber=([^&]+)/i);
+      if (pMatch) pNum = decodeURIComponent(pMatch[1]);
+    }
+
+    if (!uoo && /uoo(?:Number)?=/i.test(hash)) {
+      const uMatch = hash.match(/uoo(?:Number)?=([^&]+)/i);
+      if (uMatch) uoo = decodeURIComponent(uMatch[1]);
+    }
+
+    // If query string had uoo= before '#' split it (e.g. ?productNumber=FE-0001&uoo=ABC#1234 or &uoo=#1234)
+    if (/uoo(?:Number)?=[^&]*$/i.test(rawSearch)) {
+      const hashPart = hash.split('&')[0]; // retains '#'
+      uoo = (uoo || '') + hashPart;
+    } else if (!uoo && hash.startsWith('#') && !hash.includes('=')) {
+      uoo = hash.slice(1);
+    }
+  }
+
+  try {
+    pNum = decodeURIComponent(pNum).trim();
+  } catch (e) {
+    pNum = pNum.trim();
+  }
+
+  try {
+    uoo = decodeURIComponent(uoo).trim();
+  } catch (e) {
+    uoo = uoo.trim();
+  }
+
+  return { pNum, uoo };
+};
+
 const VerifyProduct = () => {
   const [searchParams] = useSearchParams();
 
@@ -31,15 +74,16 @@ const VerifyProduct = () => {
   const [verifiedData, setVerifiedData] = useState(null);
   const [error, setError] = useState('');
 
-  // Auto-verify if query params exist on mount
+  // Auto-verify if query params exist on mount (safely handling # in UOO)
   useEffect(() => {
-    const pNum = searchParams.get('productNumber') || '';
-    const uoo = searchParams.get('uoo') || searchParams.get('uooNumber') || '';
+    const { pNum, uoo } = extractVerificationParams(searchParams);
     
-    if (pNum && uoo) {
-      setProductNumber(pNum);
-      setUooNumber(uoo);
-      performVerification(pNum, uoo);
+    if (pNum || uoo) {
+      if (pNum) setProductNumber(pNum);
+      if (uoo) setUooNumber(uoo);
+      if (pNum && uoo) {
+        performVerification(pNum, uoo);
+      }
     }
   }, [searchParams]);
 

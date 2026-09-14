@@ -97,7 +97,7 @@ export const productAPI = {
   updateSoldProductCustomer: (id, data) => api.patch(`/products/sold/${id}/customer`, data),
   deleteSoldProduct: (id) => api.delete(`/products/sold/${id}`),
   restoreSoldProduct: (id) => api.patch(`/products/sold/${id}/restore`),
-  verifyUOO: (productNumber, uooNumber) => api.post('/products/verify-uoo', { productNumber, uooNumber })
+  verifyUOO: (productNumber, uooNumber) => api.post('/products/verify-uoo', { productNumber, uooNumber, uoo: uooNumber })
 };
 
 export const orderAPI = {

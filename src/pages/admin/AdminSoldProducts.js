@@ -511,7 +511,7 @@ const AdminSoldProducts = () => {
           ${item.customerPhone ? `<span style="font-size:0.85rem;color:#000000;font-family:monospace;font-weight:700">${item.customerPhone}</span>` : ''}
         </div>`
       : '';
-    const qrData = encodeURIComponent(`${window.location.origin}/verify?productNumber=${item.productNumber}&uoo=${item.uooNumber}`);
+    const qrData = encodeURIComponent(`${window.location.origin}/verify?productNumber=${encodeURIComponent(item.productNumber)}&uoo=${encodeURIComponent(item.uooNumber)}`);
 
     return `
       <div class="auth-card" style="width:560px;padding:1.75rem 2rem 1.5rem;background:linear-gradient(135deg,#FCFBF8 0%,#F7F3EA 60%,#EFE8DC 100%);border:1px solid #D4AF37;border-radius:20px;color:#2C2416;font-family:sans-serif;box-sizing:border-box;position:relative">
@@ -1248,7 +1248,7 @@ const AdminSoldProducts = () => {
                   }}>
                     <img
                       src={`https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=${encodeURIComponent(
-                        `${window.location.origin}/verify?productNumber=${selectedCard.productNumber}&uoo=${selectedCard.uooNumber}`
+                        `${window.location.origin}/verify?productNumber=${encodeURIComponent(selectedCard.productNumber)}&uoo=${encodeURIComponent(selectedCard.uooNumber)}`
                       )}`}
                       alt="Verify QR"
                       style={{ width: '100%', height: '100%', objectFit: 'contain' }}
