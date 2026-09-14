@@ -1,0 +1,608 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600&family=Cairo:wght@300;400;600;700&family=Tajawal:wght@500;700&family=Neirizi&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  /* ── Luxurious Light Palette (Ivory/Gold) ──────── */
+  --bg-color: #FCFBF8;       /* soft pearl/ivory background */
+  --surface: #FFFFFF;        /* crisp white surface */
+  --surface-alt: #F4F1EA;    /* slightly warmer cream for cards */
+  
+  /* ── Vibrant Gold Accents ──────────────────────── */
+  --main-gold: #C8A45D;      /* refined elegant gold */
+  --light-gold: #E7D4A8;
+  --deep-gold: #B4883B;
+  --dark-gold: #8E6826;
+  --metallic-gold: #D8BC7A;
+
+  /* ── Type ─────────────────────────────────────── */
+  --text-heading: #1A1612;   /* rich dark espresso for headings */
+  --text-dark: #2C2416;      /* warm deep-brown body text */
+  --text-mid: #5C4E38;
+  --text-light: #9C8C78;
+
+  /* ── Borders & Shadows ────────────────────────── */
+  --border: rgba(142, 104, 38, 0.15);
+  --border-strong: rgba(200, 164, 93, 0.4);
+  
+  --shadow-sm: 0 4px 15px rgba(142, 104, 38, 0.08);
+  --shadow-md: 0 10px 30px rgba(142, 104, 38, 0.12);
+  --shadow-gold: 0 12px 35px rgba(200, 164, 93, 0.2);
+
+  /* ── Gold Gradient ────────────────────────────── */
+  --gold-gradient: linear-gradient(
+    135deg,
+    var(--deep-gold) 0%,
+    var(--main-gold) 45%,
+    var(--light-gold) 75%,
+    var(--main-gold) 100%
+  );
+  
+  /* ── Light Glassmorphism ──────────────────────── */
+  --glass-bg: rgba(255, 255, 255, 0.85);
+  --glass-border: rgba(255, 255, 255, 0.4);
+
+  /* ── Extras ───────────────────────────────────── */
+  --ivory: #FAFAF8;
+  --dark-charcoal: #1A1614;
+  --white: #FFFFFF;
+  --gray-bg: #F8F8F8;
+}
+
+/* ─── Base ──────────────────────────────────────── */
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--bg-color);
+  color: var(--text-dark);
+  line-height: 1.7;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  transition: background-color 0.3s ease;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.app > main { flex: 1; }
+
+/* ─── Typography ────────────────────────────────── */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-weight: 600;
+  line-height: 1.15;
+  margin-bottom: 1rem;
+  letter-spacing: 0.02em;
+  color: var(--text-heading);
+}
+
+h1 { font-size: 3.5rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+h2 { font-size: 2.75rem; }
+h3 { font-size: 2rem; }
+h4 { font-size: 1.5rem; }
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+a:hover {
+  color: var(--main-gold);
+}
+
+button {
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+}
+
+/* ─── Layout ────────────────────────────────────── */
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.section { padding: 5.5rem 0; }
+
+.grid         { display: grid; gap: 2rem; }
+.grid-2       { grid-template-columns: repeat(2, 1fr); }
+.grid-3       { grid-template-columns: repeat(3, 1fr); }
+.grid-4       { grid-template-columns: repeat(4, 1fr); }
+
+/* ─── Buttons ───────────────────────────────────── */
+.btn {
+  padding: 0.9rem 2.25rem;
+  border: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  position: relative;
+  overflow: hidden;
+  border-radius: 4px;
+}
+
+.btn-primary {
+  background: var(--gold-gradient);
+  background-size: 200% auto;
+  color: var(--surface);
+  font-weight: 700;
+  box-shadow: 0 4px 15px rgba(200, 164, 93, 0.3);
+}
+
+.btn-primary:hover {
+  background-position: right center;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(200, 164, 93, 0.5);
+}
+
+.btn-outline {
+  background: transparent;
+  border: 1px solid var(--main-gold);
+  color: var(--main-gold);
+}
+
+.btn-outline:hover {
+  background: var(--main-gold);
+  color: var(--surface);
+  box-shadow: 0 4px 15px rgba(200, 164, 93, 0.3);
+  transform: translateY(-2px);
+}
+
+/* ─── Form Elements ─────────────────────────────── */
+.form-group {
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  font-size: 0.85rem;
+  color: var(--text-mid);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="tel"],
+select,
+textarea {
+  width: 100%;
+  padding: 1rem 1.25rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text-heading);
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--text-light);
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--main-gold);
+  background-color: var(--surface);
+  box-shadow: 0 0 0 4px rgba(200, 164, 93, 0.1);
+}
+
+/* ─── Utilities ─────────────────────────────────── */
+.glass-panel {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-md);
+  border-radius: 12px;
+}
+
+/* ─── Loading ───────────────────────────────────── */
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 50vh;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 2rem;
+  color: var(--main-gold);
+  font-style: italic;
+  letter-spacing: 0.05em;
+  animation: pulse 1.6s infinite ease-in-out;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.4; text-shadow: 0 0 0 rgba(200, 164, 93, 0); }
+  50%       { opacity: 1;   text-shadow: 0 0 15px rgba(200, 164, 93, 0.3); }
+}
+
+/* ─── Scrollbar ─────────────────────────────────── */
+::-webkit-scrollbar       { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: var(--bg-color); }
+::-webkit-scrollbar-thumb { background: var(--surface-alt); border-radius: 4px; border: 1px solid var(--border); }
+::-webkit-scrollbar-thumb:hover { background: var(--main-gold); }
+
+/* ─── Responsive ────────────────────────────────── */
+.container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+img,
+picture,
+svg,
+video {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+button,
+input,
+select,
+textarea {
+  min-width: 0;
+}
+
+@media (max-width: 1280px) {
+  .container { padding: 0 1.75rem; }
+  .grid-4, .grid-3 { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 1024px) {
+  .grid-4, .grid-3, .grid-2 { grid-template-columns: repeat(2, 1fr); }
+  .section { padding: 4.5rem 0; }
+  h1 { font-size: 2.75rem; }
+  h2 { font-size: 2rem; }
+}
+
+@media (max-width: 768px) {
+  .container { padding: 0 1.25rem; }
+  .section { padding: 3rem 0; }
+  .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+  h1 { font-size: 2rem; }
+  h2 { font-size: 1.6rem; }
+}
+
+@media (max-width: 480px) {
+  .container { padding: 0 0.9rem; }
+  .section { padding: 2rem 0; }
+  h1 { font-size: 1.75rem; }
+  h2 { font-size: 1.35rem; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   SCREEN-CAPTURE / SCREENSHOT PROTECTION
+   ═══════════════════════════════════════════════════════════════════════════
+   These rules work alongside the JS useScreenProtection hook to make it as
+   difficult as possible to take clean screenshots or record video of this app.
+   ─────────────────────────────────────────────────────────────────────────── */
+
+/* 1. Disable text selection globally (defeats Ctrl+A + screenshot combos)   */
+*,
+*::before,
+*::after {
+  -webkit-user-select:     none !important;   /* Chrome / Safari / Edge  */
+  -moz-user-select:        none !important;   /* Firefox                 */
+  -ms-user-select:         none !important;   /* IE / old Edge           */
+  user-select:             none !important;
+
+  /* Suppress mobile blue highlight on tap that can reveal content bounds  */
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* 2. Keep form inputs selectable (UX requirement – users must type)         */
+input,
+textarea,
+[contenteditable="true"] {
+  -webkit-user-select: text !important;
+  -moz-user-select:    text !important;
+  user-select:         text !important;
+}
+
+/* 3. Prevent images / media from being dragged off the page                */
+img,
+video,
+canvas,
+iframe {
+  -webkit-user-drag:   none;
+  user-drag:           none;
+  pointer-events:      none;  /* images have no interaction need – overlays handle UI */
+}
+
+/* 4. Print layout – show only authenticity cards when printing */
+@media print {
+  html, body {
+    background: #ffffff !important;
+    color: #000000 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  
+  /* Hide layout headers, footers, toast messages, and everything outside the modal */
+  .header, .footer, .ToastContainer {
+    display: none !important;
+  }
+  
+  .sold-products-page > .container {
+    display: none !important;
+  }
+  
+  .card-close, .card-actions {
+    display: none !important;
+  }
+}
+
+/* 5. Extra: force-black any CSS-screenshot utilities that rely on
+      rendering with media=screen while injecting print styles              */
+@media screen {
+  .no-capture {
+    filter: blur(8px);
+    transition: filter 0.2s ease;
+  }
+  .no-capture:focus-within {
+    filter: none;
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════
+   ARABIC LANGUAGE SUPPORT (RTL)
+   ═══════════════════════════════════════════════════════
+   Complete RTL layout with Cairo font for Arabic text
+   ─────────────────────────────────────────────────────── */
+
+/* Apply RTL direction and Arabic font */
+[dir="rtl"],
+[lang="ar"] {
+  direction: rtl;
+  text-align: right;
+}
+
+/* Body font — dir is on <html>, so target body as descendant */
+[dir="rtl"] body {
+  font-family: 'Cairo', 'Inter', -apple-system, sans-serif;
+  letter-spacing: 0;
+}
+
+[dir="rtl"] h1,
+[dir="rtl"] h2,
+[dir="rtl"] h3,
+[dir="rtl"] h4,
+[dir="rtl"] h5,
+[dir="rtl"] h6 {
+  font-family: 'Cairo', Georgia, serif;
+  letter-spacing: 0;
+}
+
+/* Kill letter-spacing on all Arabic text */
+[dir="rtl"] * {
+  letter-spacing: 0 !important;
+}
+
+/* Navbar RTL */
+[dir="rtl"] .navbar {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .nav-links {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .nav-actions {
+  flex-direction: row-reverse;
+}
+
+/* Grid RTL */
+[dir="rtl"] .grid {
+  direction: rtl;
+}
+
+/* Product Layout RTL */
+[dir="rtl"] .product-layout {
+  direction: rtl;
+}
+
+[dir="rtl"] .product-info-inner {
+  flex-direction: row-reverse;
+}
+
+/* Forms RTL */
+[dir="rtl"] input,
+[dir="rtl"] textarea,
+[dir="rtl"] select {
+  text-align: right;
+  direction: rtl;
+}
+
+[dir="rtl"] .form-group label {
+  text-align: right;
+}
+
+/* Buttons RTL */
+[dir="rtl"] .btn {
+  direction: rtl;
+}
+
+/* Footer RTL */
+[dir="rtl"] .footer-content {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .footer-links {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .social-links {
+  flex-direction: row-reverse;
+}
+
+/* Card layouts RTL */
+[dir="rtl"] .pc-info-inner,
+[dir="rtl"] .stat-card,
+[dir="rtl"] .action-card {
+  direction: rtl;
+  text-align: right;
+}
+
+/* Admin dashboard RTL */
+[dir="rtl"] .admin-header {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .size-stock-row {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .size-stock-fields {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .form-actions {
+  flex-direction: row-reverse;
+}
+
+/* Image previews RTL */
+[dir="rtl"] .image-previews {
+  direction: rtl;
+}
+
+[dir="rtl"] .image-preview-actions {
+  flex-direction: row-reverse;
+}
+
+/* Product detail RTL */
+[dir="rtl"] .image-thumbnails {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .selector-group {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .info-section h3 {
+  text-align: right;
+}
+
+/* Price display — keep numbers LTR even in RTL context */
+[dir="rtl"] .price,
+[dir="rtl"] .pc-price,
+[dir="rtl"] .stat-number {
+  direction: ltr;
+  unicode-bidi: embed;
+}
+
+/* Badges RTL */
+[dir="rtl"] .pc-badges {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .img-role-badge {
+  left: auto;
+  right: 1rem;
+}
+
+/* Back-hint slides from left in RTL */
+[dir="rtl"] .pc-back-hint {
+  right: auto;
+  left: 0;
+  transform: translateX(-8px);
+}
+
+[dir="rtl"] .product-card:hover .pc-back-hint,
+[dir="rtl"] .product-card.is-hovered .pc-back-hint {
+  transform: translateX(0);
+}
+
+/* Product card info row RTL */
+[dir="rtl"] .pc-info-inner {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .pc-text {
+  text-align: right;
+}
+
+[dir="rtl"] .pc-pricing {
+  align-items: flex-start;
+}
+
+[dir="rtl"] .pc-name,
+[dir="rtl"] .pc-category {
+  font-family: 'Cairo', sans-serif;
+}
+
+[dir="rtl"] .pc-cta-sold {
+  display: block;
+  text-align: center;
+}
+
+/* Contact page RTL */
+[dir="rtl"] .contact-info-section {
+  flex-direction: row-reverse;
+}
+
+/* Responsive RTL fixes */
+@media (max-width: 768px) {
+  [dir="rtl"] .nav-links {
+    align-items: flex-end;
+  }
+
+  [dir="rtl"] .container {
+    padding-left: 0.9rem;
+    padding-right: 0.9rem;
+  }
+
+  [dir="rtl"] .hero-content,
+  [dir="rtl"] .story-content,
+  [dir="rtl"] .countdown-card,
+  [dir="rtl"] .drop-header,
+  [dir="rtl"] .featured-grid,
+  [dir="rtl"] .section-title,
+  [dir="rtl"] .admin-header,
+  [dir="rtl"] .admin-row,
+  [dir="rtl"] .footer-content {
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+  }
+
+  [dir="rtl"] .hero-content,
+  [dir="rtl"] .story-content,
+  [dir="rtl"] .countdown-card {
+    margin: 0 auto;
+  }
+
+  [dir="rtl"] .drop-header {
+    display: flex;
+    flex-direction: column;
+  }
+
+  [dir="rtl"] .admin-row {
+    grid-template-columns: 1fr !important;
+  }
+}

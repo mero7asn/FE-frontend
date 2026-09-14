@@ -1,0 +1,586 @@
+.account-page {
+  padding: 3rem 0 6rem;
+  background: #FCFBF8;
+  min-height: calc(100vh - 80px);
+}
+
+.account-header {
+  margin-bottom: 2.5rem;
+}
+
+.account-header h1 {
+  font-size: 2.2rem;
+  margin: 0 0 0.25rem 0;
+  color: #1A1612;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  letter-spacing: 0.5px;
+}
+
+.account-welcome {
+  color: #7A6C58;
+  font-size: 1.05rem;
+  margin: 0;
+}
+
+/* Layout */
+.account-layout {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .account-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Sidebar */
+.account-sidebar {
+  background: #FFFFFF;
+  border-radius: 12px;
+  border: 1px solid rgba(200, 164, 93, 0.25);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.account-nav-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.85rem 1rem;
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  color: #5C4E38;
+  font-size: 0.95rem;
+  font-weight: 500;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+[dir="rtl"] .account-nav-btn {
+  text-align: right;
+}
+
+.account-nav-btn svg {
+  font-size: 1.15rem;
+  color: #A3927E;
+  transition: color 0.2s;
+}
+
+.account-nav-btn:hover {
+  background: #F8F5EE;
+  color: #1A1612;
+}
+
+.account-nav-btn:hover svg {
+  color: #C8A45D;
+}
+
+.account-nav-btn.active {
+  background: #1A1612;
+  color: #FCFBF8;
+}
+
+.account-nav-btn.active svg {
+  color: #C8A45D;
+}
+
+.tab-count {
+  margin-left: auto;
+  background: #EFEAE1;
+  color: #5C4E38;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 12px;
+}
+
+[dir="rtl"] .tab-count {
+  margin-left: 0;
+  margin-right: auto;
+}
+
+.gold-count {
+  background: #C8A45D;
+  color: #1A1612;
+}
+
+/* Account Card Content */
+.account-card {
+  background: #FFFFFF;
+  border-radius: 12px;
+  border: 1px solid rgba(200, 164, 93, 0.25);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  padding: 2.25rem;
+}
+
+.account-card h2 {
+  font-size: 1.5rem;
+  margin: 0 0 0.35rem 0;
+  color: #1A1612;
+}
+
+.card-subtext {
+  color: #7A6C58;
+  font-size: 0.92rem;
+  margin-bottom: 2rem;
+}
+
+/* Forms */
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-bottom: 1.25rem;
+}
+
+.form-group label {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #1A1612;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.form-group input {
+  padding: 0.75rem 1rem;
+  border: 1px solid #D8CFBF;
+  border-radius: 6px;
+  background: #FCFBF8;
+  font-size: 0.92rem;
+  color: #1A1612;
+}
+
+.disabled-input {
+  background: #F4EFE6 !important;
+  color: #8C7B68 !important;
+  cursor: not-allowed;
+}
+
+/* Addresses */
+.addresses-section {
+  border-top: 1px solid #EAE4D8;
+  padding-top: 1.5rem;
+  margin-top: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.addresses-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.addresses-header h3 {
+  font-size: 1.15rem;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #1A1612;
+}
+
+.btn-link {
+  background: none;
+  border: none;
+  color: #C8A45D;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 0.88rem;
+}
+
+.btn-link:hover {
+  text-decoration: underline;
+}
+
+.add-address-box {
+  background: #FAFAF7;
+  border: 1px solid #EAE4D8;
+  border-radius: 8px;
+  padding: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+.add-address-box h4 {
+  font-size: 0.95rem;
+  margin: 0 0 0.75rem 0;
+}
+
+.address-form-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.address-form-grid input {
+  padding: 0.6rem 0.8rem;
+  border: 1px solid #D8CFBF;
+  border-radius: 4px;
+}
+
+.saved-addresses-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1rem;
+}
+
+.saved-address-card {
+  background: #FAFAF7;
+  border: 1px solid #EAE4D8;
+  border-radius: 8px;
+  padding: 1rem;
+  position: relative;
+}
+
+.addr-street {
+  font-weight: 600;
+  margin: 0 0 0.25rem 0;
+  font-size: 0.92rem;
+  color: #1A1612;
+}
+
+.addr-city {
+  color: #7A6C58;
+  font-size: 0.85rem;
+  margin: 0 0 0.75rem 0;
+}
+
+.remove-addr-btn {
+  background: none;
+  border: none;
+  color: #C0392B;
+  font-size: 0.8rem;
+  cursor: pointer;
+  padding: 0;
+  text-decoration: underline;
+}
+
+.no-address-text {
+  color: #8C7B68;
+  font-size: 0.9rem;
+  font-style: italic;
+}
+
+.save-profile-btn {
+  padding: 0.85rem 2rem;
+}
+
+/* Orders List */
+.orders-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.order-card-box {
+  border: 1px solid #EAE4D8;
+  border-radius: 10px;
+  padding: 1.5rem;
+  background: #FAFAF7;
+  transition: border-color 0.2s;
+}
+
+.order-card-box:hover {
+  border-color: #C8A45D;
+}
+
+.order-box-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #EAE4D8;
+  margin-bottom: 1rem;
+}
+
+.order-num {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #1A1612;
+  margin-right: 0.75rem;
+}
+
+.order-date {
+  color: #7A6C58;
+  font-size: 0.85rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+
+.status-pending { background: #FFF3CD; color: #856404; }
+.status-processing { background: #D1ECF1; color: #0C5460; }
+.status-shipped { background: #D4EDDA; color: #155724; }
+.status-delivered { background: #E2F0D9; color: #2B542C; border: 1px solid #C3E6CB; }
+.status-canceled { background: #F8D7DA; color: #721C24; }
+
+.order-items-preview {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.order-item-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.order-item-title {
+  display: flex;
+  flex-direction: column;
+}
+
+.item-variant-spec {
+  font-size: 0.8rem;
+  color: #7A6C58;
+}
+
+.item-price {
+  font-weight: 600;
+  color: #1A1612;
+}
+
+.order-box-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1rem;
+  border-top: 1px solid #EAE4D8;
+}
+
+.order-total-info {
+  font-size: 1rem;
+  color: #5C4E38;
+}
+
+.order-total-info strong {
+  color: #1A1612;
+  font-size: 1.1rem;
+  margin-left: 6px;
+}
+
+.tracking-badge {
+  font-size: 0.85rem;
+  color: #5C4E38;
+  background: #EFEAE1;
+  padding: 4px 10px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* My UUO Cards Tab (Luxury Authenticity Certificates) */
+.uuo-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.75rem;
+}
+
+.luxury-uuo-card {
+  background: linear-gradient(145deg, #1C1814 0%, #110E0C 100%);
+  color: #FCFBF8;
+  border-radius: 14px;
+  padding: 1.5rem;
+  border: 1.5px solid rgba(200, 164, 93, 0.4);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.25s, box-shadow 0.25s;
+}
+
+.luxury-uuo-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 36px rgba(200, 164, 93, 0.25);
+  border-color: #C8A45D;
+}
+
+.luxury-uuo-card::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(200, 164, 93, 0.08) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.uuo-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(200, 164, 93, 0.25);
+  padding-bottom: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.brand-badge {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #C8A45D;
+}
+
+.cert-tag {
+  font-size: 0.65rem;
+  background: rgba(200, 164, 93, 0.15);
+  color: #DFC17B;
+  padding: 2px 8px;
+  border-radius: 10px;
+  letter-spacing: 1px;
+  border: 1px solid rgba(200, 164, 93, 0.3);
+}
+
+.uuo-card-body {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.uuo-card-thumb {
+  width: 75px;
+  height: 85px;
+  border-radius: 6px;
+  overflow: hidden;
+  background: #2A2520;
+  border: 1px solid rgba(200, 164, 93, 0.3);
+  flex-shrink: 0;
+}
+
+.uuo-card-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.uuo-card-meta {
+  flex: 1;
+}
+
+.card-prod-name {
+  font-size: 1.05rem;
+  margin: 0 0 0.5rem 0;
+  color: #FCFBF8;
+  line-height: 1.3;
+}
+
+.card-meta-line {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.78rem;
+  color: #A3927E;
+  margin-bottom: 0.25rem;
+}
+
+.card-meta-line strong {
+  color: #E2D9C8;
+}
+
+/* Gold Foil UOO Banner */
+.uuo-code-banner {
+  background: linear-gradient(90deg, rgba(200, 164, 93, 0.15) 0%, rgba(200, 164, 93, 0.25) 50%, rgba(200, 164, 93, 0.15) 100%);
+  border: 1px dashed #C8A45D;
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  text-align: center;
+  margin-bottom: 1.25rem;
+}
+
+.uuo-code-label {
+  display: block;
+  font-size: 0.65rem;
+  color: #DFC17B;
+  letter-spacing: 1.5px;
+  margin-bottom: 2px;
+}
+
+.uuo-code-value {
+  font-family: 'Courier New', monospace;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #FFE6A3;
+  letter-spacing: 2px;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+.uuo-card-actions {
+  display: flex;
+  justify-content: center;
+}
+
+.btn-verify-direct {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #C8A45D;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.btn-verify-direct:hover {
+  color: #FFE6A3;
+  text-decoration: underline;
+}
+
+/* Empty States */
+.empty-tab-state {
+  text-align: center;
+  padding: 3rem 1rem;
+}
+
+.empty-icon {
+  font-size: 3rem;
+  color: #D8CFBF;
+  margin-bottom: 1rem;
+}
+
+.gold-icon {
+  color: #C8A45D;
+}
+
+.empty-tab-state h3 {
+  font-size: 1.3rem;
+  margin: 0 0 0.5rem 0;
+  color: #1A1612;
+}
+
+.empty-tab-state p {
+  color: #7A6C58;
+  max-width: 320px;
+  margin: 0 auto 1.5rem auto;
+  line-height: 1.5;
+}
